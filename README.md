@@ -31,8 +31,6 @@
 - 📺 **B站** · [美国刹不住的贸易逆差](examples/bilibili-trade-deficit/) — 17 分钟，无字幕 → ASR 转写 → 5 章 18 个观点
 - ▶️ **YouTube** · [Do schools kill creativity?](examples/youtube-ken-robinson/) — 19 分钟 TED，英文 → 全中文摘要
 
-> 更多实测产出（如 88 分钟 UFC 总裁长访谈 → 11 章 46 个观点）见 skill 实际运行效果，不再冗余入库。
-
 ---
 
 ## ✨ 功能特性
@@ -76,10 +74,10 @@
 
 ## 📦 安装
 
-### 方式一：作为 Kimi Skill 使用（推荐 ⭐）
+### 方式一：作为  Skill 使用（推荐 ⭐）
 
 1. 下载 [Releases](../../releases) 中的 `video-digest.skill`（或[自行打包](#自行打包-skill)）
-2. 在 Kimi 中导入该 skill
+2. 在 Agent app 中导入该 skill
 3. 直接发送视频链接即可，例如：
 
 > 💬 `帮我总结一下这个视频 https://www.bilibili.com/video/BVxxx`
