@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>{{TITLE}} · 视频速览</title>
+<style>
+  :root{
+    --paper:#f7f1e5; --paper-deep:#efe6d3; --card:#fffdf7;
+    --ink:#28221a; --ink-soft:#5c5344; --ink-faint:#8a7f6b;
+    --accent:#bf4a1f; --accent-soft:#e8c9b8; --gold:#a8823c;
+    --line:#ddd2bd; --serif:Georgia,"Times New Roman","Songti SC","STSong","Noto Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.75;
+       background-image:radial-gradient(rgba(40,34,26,.04) 1px,transparent 1px);background-size:22px 22px}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 40px;border-bottom:3px double var(--line)}
+  .kicker{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.35em;
+          color:var(--accent);font-weight:700;text-transform:uppercase}
+  .kicker::before,.kicker::after{content:"";height:1px;background:var(--accent-soft);flex:0 0 32px}
+  h1{font-family:var(--serif);font-size:clamp(26px,5vw,44px);line-height:1.3;margin:20px 0 8px;font-weight:700}
+  .subtitle{color:var(--ink-soft);font-size:15px;margin-bottom:22px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:4px 14px;border:1px solid var(--line);
+        border-radius:999px;background:var(--card);font-size:13px;color:var(--ink-soft)}
+  .chip b{color:var(--ink);font-weight:600}
+  .chip.platform{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600}
+  .tldr{background:var(--card);border-left:5px solid var(--accent);padding:22px 26px;border-radius:0 12px 12px 0;
+        box-shadow:0 2px 12px rgba(40,34,26,.06)}
+  .tldr .label{font-size:12px;letter-spacing:.25em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .tldr p{font-family:var(--serif);font-size:17px;line-height:1.9}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:34px 0;border-bottom:1px solid var(--line)}
+  .stat{text-align:center;padding:18px 8px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .stat .num{font-family:var(--serif);font-size:30px;color:var(--accent);line-height:1.2}
+  .stat .cap{font-size:12px;color:var(--ink-faint);letter-spacing:.1em;margin-top:4px}
+
+  /* ---------- overview ---------- */
+  .overview{padding:38px 0 8px}
+  h2{font-family:var(--serif);font-size:26px;display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  h2 .no{font-size:14px;color:var(--gold);letter-spacing:.2em;font-family:var(--sans);font-weight:700}
+  .sec-sub{color:var(--ink-faint);font-size:13px;margin-bottom:20px}
+  .ov-list{list-style:none;counter-reset:ov}
+  .ov-list li{counter-increment:ov;position:relative;padding:14px 18px 14px 64px;background:var(--card);
+              border:1px solid var(--line);border-radius:12px;margin-bottom:12px;font-size:15px}
+  .ov-list li::before{content:counter(ov,decimal-leading-zero);position:absolute;left:16px;top:12px;
+                      font-family:var(--serif);font-size:24px;color:var(--accent-soft);font-weight:700}
+  .keywords{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .kw{font-size:12px;padding:4px 12px;border-radius:999px;background:var(--paper-deep);color:var(--ink-soft);
+      border:1px dashed var(--line)}
+
+  /* ---------- chapters ---------- */
+  .chapters{padding:38px 0 10px}
+  .timeline{position:relative;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+                    background:repeating-linear-gradient(var(--accent-soft) 0 6px,transparent 6px 12px)}
+  .chapter{position:relative;margin-bottom:30px}
+  .chapter::before{content:"";position:absolute;left:-31px;top:26px;width:12px;height:12px;border-radius:50%;
+                   background:var(--accent);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--accent-soft)}
+  .ch-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;
+           box-shadow:0 2px 10px rgba(40,34,26,.05)}
+  .ch-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .ch-no{font-family:var(--serif);font-size:34px;color:var(--accent);line-height:1}
+  .ch-title{font-family:var(--serif);font-size:20px;font-weight:700;flex:1;min-width:200px}
+  .ch-time{font-size:12px;color:var(--gold);border:1px solid var(--gold);border-radius:999px;
+           padding:3px 12px;white-space:nowrap}
+  .ch-time:hover{background:var(--gold);color:#fff}
+  .ch-summary{color:var(--ink-soft);font-size:14px;margin:8px 0 14px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+  .points{list-style:none}
+  .points li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dotted var(--line)}
+  .points li:last-child{border-bottom:none}
+  .ts{flex:0 0 auto;align-self:flex-start;margin-top:2px;font-size:12px;font-variant-numeric:tabular-nums;
+      background:var(--paper-deep);border-radius:6px;padding:2px 8px;min-height:24px;display:inline-flex;
+      align-items:center;gap:4px;color:var(--ink-soft)}
+  .ts:hover{background:var(--accent);color:#fff}
+  .pt-body{flex:1}
+  .pt-head{font-weight:600;font-size:15px;margin-bottom:2px}
+  .pt-detail{font-size:13.5px;color:var(--ink-soft)}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:44px;padding:26px 0 60px;border-top:3px double var(--line);text-align:center;
+         color:var(--ink-faint);font-size:12px;letter-spacing:.05em}
+  footer .mark{font-family:var(--serif);color:var(--accent);font-size:14px;letter-spacing:.2em}
+
+  @media (max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .hero{padding:44px 0 30px}
+    .ch-card{padding:18px}
+    .timeline{padding-left:26px}
+    .chapter::before{left:-23px}
+    .points li{flex-direction:column;gap:6px}
+    .chip{min-height:44px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Video Digest · 视频速览</div>
+    <h1>{{TITLE}}</h1>
+    <div class="subtitle">{{SUBTITLE}}</div>
+    <div class="meta">
+      <span class="chip platform">{{PLATFORM}}</span>
+      <span class="chip">UP主 / 作者 · <b>{{UPLOADER}}</b></span>
+      <span class="chip">时长 · <b>{{DURATION_TEXT}}</b></span>
+      <a class="chip" href="{{URL}}" target="_blank" rel="noopener">原视频 ↗</a>
+    </div>
+    <div class="tldr">
+      <div class="label">TL;DR · 一句话看懂</div>
+      <p>{{TLDR}}</p>
+    </div>
+  </header>
+
+  <section class="stats">
+    {{STATS_HTML}}
+  </section>
+
+  <section class="overview">
+    <h2><span class="no">PART 01</span>主要内容</h2>
+    <div class="sec-sub">不点开视频，也能掌握的核心信息</div>
+    <ol class="ov-list">
+      {{OVERVIEW_HTML}}
+    </ol>
+    <div class="keywords">{{KEYWORDS_HTML}}</div>
+  </section>
+
+  <section class="chapters">
+    <h2><span class="no">PART 02</span>章节梳理</h2>
+    <div class="sec-sub">点击时间点可跳转原视频对应位置</div>
+    <div class="timeline">
+      {{CHAPTERS_HTML}}
+    </div>
+  </section>
+
+  <footer>
+    <div class="mark">— VIDEO DIGEST —</div>
+    <p style="margin-top:8px">本页为 AI 辅助整理的内容摘要，观点与事实以原视频为准 · 生成于 {{GEN_DATE}}</p>
+  </footer>
+
+</div>
+</body>
+</html>

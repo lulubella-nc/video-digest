@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} · 公众号版</title>
+</head>
+<body style="margin:0;padding:16px 8px;background:#ffffff;">
+<!-- 用法：浏览器打开本文件 → 全选(Ctrl/Cmd+A) → 复制 → 粘贴进公众号编辑器或 135 编辑器，排版自动保留。
+     粘贴时只取渲染出的内容，本注释与外圈标签不会进入正文。 -->
+<section style="max-width:100%;margin:0 auto;padding:0 8px;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;color:#28221a;line-height:1.8;font-size:15px;">
+
+  <!-- 头部 -->
+  <section style="text-align:center;padding:28px 0 18px;border-bottom:2px solid #ddd2bd;">
+    <section style="display:inline-block;font-size:11px;letter-spacing:4px;color:#bf4a1f;font-weight:bold;border:1px solid #e8c9b8;border-radius:999px;padding:4px 16px;margin-bottom:14px;">VIDEO DIGEST · 视频速览</section>
+    <section style="font-family:Georgia,'Songti SC','Noto Serif SC',serif;font-size:22px;font-weight:bold;line-height:1.5;margin:6px 0 10px;">{{TITLE}}</section>
+    <section style="font-size:12px;color:#8a7f6b;">{{PLATFORM}} · {{UPLOADER}} · 时长 {{DURATION_TEXT}}</section>
+  </section>
+
+  <!-- TL;DR -->
+  <section style="margin:22px 0;padding:18px 20px;background:#fffdf7;border-left:4px solid #bf4a1f;border-radius:0 10px 10px 0;">
+    <section style="font-size:11px;letter-spacing:3px;color:#bf4a1f;font-weight:bold;margin-bottom:6px;">TL;DR · 一句话看懂</section>
+    <section style="font-family:Georgia,'Songti SC',serif;font-size:15.5px;line-height:1.9;">{{TLDR}}</section>
+  </section>
+
+  <!-- 主要内容 -->
+  <section style="margin:26px 0 6px;">
+    <section style="font-family:Georgia,'Songti SC',serif;font-size:19px;font-weight:bold;padding-bottom:8px;border-bottom:2px solid #28221a;display:flex;align-items:baseline;">
+      <span style="font-size:11px;color:#a8823c;letter-spacing:2px;margin-right:8px;">PART 01</span>主要内容
+    </section>
+    {{OVERVIEW_HTML}}
+  </section>
+
+  <!-- 章节梳理 -->
+  <section style="margin:30px 0 6px;">
+    <section style="font-family:Georgia,'Songti SC',serif;font-size:19px;font-weight:bold;padding-bottom:8px;border-bottom:2px solid #28221a;">
+      <span style="font-size:11px;color:#a8823c;letter-spacing:2px;margin-right:8px;">PART 02</span>章节梳理
+    </section>
+    {{CHAPTERS_HTML}}
+  </section>
+
+  <!-- 关键词 -->
+  <section style="margin:18px 0;padding:14px 16px;background:#efe6d3;border-radius:10px;font-size:13px;color:#5c5344;">
+    <span style="color:#bf4a1f;font-weight:bold;">关键词：</span>{{KEYWORDS_TEXT}}
+  </section>
+
+  <!-- 结尾 -->
+  <section style="margin-top:26px;padding-top:16px;border-top:1px solid #ddd2bd;text-align:center;font-size:11px;color:#8a7f6b;letter-spacing:1px;">
+    <section style="font-family:Georgia,serif;color:#bf4a1f;letter-spacing:3px;margin-bottom:6px;">— VIDEO DIGEST —</section>
+    本文为由 AI 辅助整理的视频内容摘要，观点与事实以原视频为准
+  </section>
+
+</section>
+</body>
+</html>
